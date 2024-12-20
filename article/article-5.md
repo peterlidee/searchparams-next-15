@@ -1,6 +1,6 @@
 # 5. Mocking usePathName, useSearchParams and useRouter with Jest in Next 15
 
-In previous parts we saw how to use and test the async `searchParam` prop in a route page component. Since we're working with `searchParams` I wanted to demonstrate how to test a file that uses `useSearchParams`, `usePathname` and `useRouter`.
+In previous parts we saw how to use and test the async `searchParams` prop in a route page component. Since we're working with `searchParams` I also wanted to demonstrate how to test a file that uses the `useSearchParams`, `usePathname` and `useRouter` hooks.
 
 Note: this code is available in a [github repo](https://github.com/peterlidee/searchparams-next-15).
 
@@ -104,7 +104,7 @@ function setup() {
 describe('<ListControles /> component', () => {
   // error
   test('It renders', () => {
-    const { buttonAsc, buttonDesc } = setup('asc');
+    const { buttonAsc, buttonDesc } = setup();
     expect(screen.getByText(/current sort order: asc/i)).toBeInTheDocument();
     expect(buttonAsc).toBeInTheDocument();
     expect(buttonDesc).toBeInTheDocument();
@@ -171,7 +171,7 @@ TypeError: Cannot read properties of undefined (reading 'get')
 
 So, we need to fix this. We need to return something from our `useSearchParams` mock. But what? `useSearchParams` returns a `URLSearchParams` interface that gives us access to a whole bunch of properties like `set`, `get`, `has`, ... We only need the `get` method.
 
-We could just create a new `URLSearchParams` interface, pass it mock `searchParams` (f.e. `{ sortOrder: 'asc' }`) and return that from `useSearchParams` mock. That might work but there a problem with it. I would **not** enable us to listen for the `searchParams.get` method to have been called. And that is something we do want to test.
+We could just create a new `URLSearchParams` interface, pass it mock `searchParams` (f.e. `{ sortOrder: 'asc' }`) and return that from `useSearchParams` mock. That might work but there's a problem with it. I would **not** enable us to listen for the `searchParams.get` method to have been called. And that is something we do want to test.
 
 We actually need the `get` method to be mocked or to be a mock. So let's return an object from `useSearchParams`. On this object we put a `get` property with a `Jest` mock as value:
 
@@ -247,7 +247,7 @@ So we pass `searchParams` into a new `URLSearchParams` interface:
 const newParams = new URLSearchParams(searchParams);
 ```
 
-I explained this in part 1 of this series. The `useSearchParams` hooks return a readonly `URLSearchParams` interface. But we need to update it (with a new sortOrder) so readonly doesn't work for us.
+I explained this in part 1 of this series. The `useSearchParams` hook returns a readonly `URLSearchParams` interface. But we need to update it (with a new sortOrder) so readonly doesn't work for us.
 
 !!! NOTE: following paragraph is incorrect, we 'discover' this in a bit !!!
 
@@ -266,7 +266,7 @@ const toStringMock: jest.Mock = jest.fn();
 
 Note: we only need `get` and `toString`, if you need more methods, this is how you add those.
 
-We now have a `toStringMock` as well but we will come back to that later because there is no way to test this for now.
+We now have a `toStringMock` but we will come back to that later because there is no way to test this for now.
 
 ## testing handleSort
 
@@ -317,7 +317,7 @@ function handleSort(val: SortOrderT) {
 
 The only way to test this is to listen what our `routerPushMock` has been called with. There are 2 problems with that:
 
-1. `toStringMock` doesn't return anything
+1. `newParams.toString()` doesn't return anything (it's a mock with no return value)
 2. `usePathname` mock doesn't return anything either.
 
 This makes it rather unpredictable what `routerPushMock` has been called with. Let's add an assertion:
@@ -334,7 +334,7 @@ Expected: 'dunno';
 Received: 'undefined?get=function+%28%29+%7B%0A++++++++return+fn.apply%28this%2C+arguments%29%3B%0A++++++%7D&toString=function+%28%29+%7B%0A++++++++return+fn.apply%28this%2C+arguments%29%3B%0A++++++%7D&sortOrder=asc';
 ```
 
-This surprised me. It looks like our entire mocked object was converted to a string. So weird.
+This surprised me. It looks like our entire mocked object was converted to a string.
 
 ## URLSearchParams
 
@@ -402,6 +402,7 @@ We fill fix the pathname mock now. It's so simple. We already mocked `usePathnam
 And then update our test:
 
 ```ts
+// passes
 expect(routerPushMock).toHaveBeenCalledWith('example.com?sortOrder=asc');
 ```
 
@@ -581,3 +582,5 @@ If you want to support my writing, you can [donate with paypal](https://www.payp
 
 // link old articles to new one
 // TODO: remove spoiler in part 2
+
+// TODO: check all TODO's
