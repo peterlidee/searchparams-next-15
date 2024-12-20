@@ -13,7 +13,8 @@ export default function ListControles() {
   const sortOrder = validateSortOrder(searchParams.get('sortOrder'));
 
   function handleSort(val: SortOrderT) {
-    const newParams = new URLSearchParams(searchParams);
+    // added .toString() to searchParams
+    const newParams = new URLSearchParams(searchParams.toString());
     newParams.set('sortOrder', val);
     router.push(`${pathname}?${newParams.toString()}`);
   }
