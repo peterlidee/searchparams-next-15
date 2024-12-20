@@ -2,13 +2,13 @@
 
 This is the fourth part in a series were we look into using and testing the new `searchParams` interface in `Next 15`. In the first part we explained what changed in `Next 15` and what the difference is between synchronous and asynchronous `searchParams`. In the second part we quickly went over the code for a little example app. In the 3rd part we setup `Jest` and `@testing-library/react` with `eslint` plugins.
 
-In this part we're actually going to start testing. We start of with actually testing the `searchParams` prop in the page route component.
+In this part we're going to start testing. We start of with testing the `searchParams` prop in the page route component.
 
 Note: this code is available in a [github repo](https://github.com/peterlidee/searchparams-next-15).
 
 ## page Component
 
-Let's look at our page component once more:
+Let's look at our page component:
 
 ```tsx
 // src/app/list/page.tsx
@@ -66,7 +66,7 @@ describe('<ListPage />', () => {});
 
 Before we continue we need to talk about how you render asynchronous server components in `Jest`.
 
-We have a `<Home />` component. Let's make that async:
+We have a `<Home />` component to test this on. Let's make that async:
 
 ```tsx
 // src/app/page.tsx
@@ -347,9 +347,6 @@ Mainly, we learned how to render an async component in `Jest` and how to pass an
 
 Our little app has some more components and functions but only `<ListControles />` matters for this series because it uses `useSearchParams`, `usePathname` and `useRouter`. In the next part I will show how to mock and test this component.
 
-I wrote some tests for the other components too but I won't go into to those. You can see the tests in the [repo]().
-
-TODO: add link
-TODO: maybe integration test
+I wrote some tests for the other components too but I won't go into to those. You can see the tests in the [repo](TODO: add link).
 
 If you want to support my writing, you can [donate with paypal](https://www.paypal.com/donate/?hosted_button_id=4D78YQU4V5NEJ).
