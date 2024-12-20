@@ -118,7 +118,7 @@ moduleNameMapper: {
 },
 ```
 
-Again, this will allow use to `@` alias inside our import paths in our `Jest` test files.
+Again, this will allow to use `@` alias inside our import paths in our `Jest` test files.
 
 Finally, again in our config object, we add this line:
 
