@@ -579,5 +579,3 @@ But I do think that running into problems and learning how to solve them gives a
 As a little bonus I also wrote an integration test for the entire `/list` route. You can see it on [github](https://github.com/peterlidee/searchparams-next-15/blob/main/src/app/list/__tests__/list-route-integration.test.tsx).
 
 If you want to support my writing, you can [donate with paypal](https://www.paypal.com/donate/?hosted_button_id=4D78YQU4V5NEJ).
-
-// TODO: link old articles to new one
