@@ -347,6 +347,6 @@ Mainly, we learned how to render an async component in `Jest` and how to pass an
 
 Our little app has some more components and functions but only `<ListControles />` matters for this series because it uses `useSearchParams`, `usePathname` and `useRouter`. In the next part I will show how to mock and test this component.
 
-I wrote some tests for the other components too but I won't go into to those. You can see the tests in the [repo](TODO: add link).
+I wrote some tests for the other components too but I won't go into to those. You can see the tests in the [repo](https://github.com/peterlidee/searchparams-next-15).
 
 If you want to support my writing, you can [donate with paypal](https://www.paypal.com/donate/?hosted_button_id=4D78YQU4V5NEJ).
