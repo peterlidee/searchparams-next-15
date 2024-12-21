@@ -1,4 +1,4 @@
-# 3. How to setup Jest in a Next project (+ eslint for testing)
+# 3. How to setup Jest in a Next 15 project (+ eslint for testing)
 
 At the time of writing the first 2 parts in this series, I was using `Next 15.0.1`. That version still used `React 19 rc` - release candidate. `@testing-library/react` still ran on `React 18` and that caused a dependency conflict with `Next`. All of this resulted into us not being able to use `rtl` (react testing library) to run tests.
 
